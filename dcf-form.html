@@ -220,7 +220,7 @@
         <label><input type="radio" name="teacherType" value="Panchayat Teacher"> Panchayat Teacher</label>
         <label><input type="radio" name="teacherType" value="Prakhand Teacher"> Prakhand Teacher</label>
         <label><input type="radio" name="teacherType" value="Nagar Teacher"> Nagar Teacher</label>
-        <label><input type="radio" name="teacherType" value="Niyojit Teacher"> Niyojit Teacher</label>
+        <label><input type="radio" name="teacherType" value="Niyojit Teacher"> Niyojit Teacher (Secondary/Higher Secondary) </label>
       </div>
     </td></tr>
     <tr><th>Appointment Subject & Class (नियुक्ति का विषय एवं कक्षा)</th><td><input type="text" name="apptSubjectClass"></td></tr>
@@ -308,12 +308,12 @@
   <h3 class="section-title">4 & 5. Address Details (पता का विवरण)</h3>
   <table class="bordered addr-table">
     <tr><th>Field Name</th><th>Permanent Address (स्थायी पता)</th><th>Current Address (वर्तमान पता)</th></tr>
-    <tr><td>House No./Name</td><td><input type="text" name="permHouse"></td><td><input type="text" name="currHouse"></td></tr>
-    <tr><td>Street/Mohalla</td><td><input type="text" name="permStreet"></td><td><input type="text" name="currStreet"></td></tr>
-    <tr><td>Village/Town</td><td><input type="text" name="permVillage"></td><td><input type="text" name="currVillage"></td></tr>
-    <tr><td>Panchayat / PO</td><td><input type="text" name="permPanchayat"></td><td><input type="text" name="currPanchayat"></td></tr>
-    <tr><td>Block & District</td><td><input type="text" name="permBlockDist"></td><td><input type="text" name="currBlockDist"></td></tr>
-    <tr><td>PIN Code</td><td><input type="text" name="permPin" maxlength="6"></td><td><input type="text" name="currPin" maxlength="6"></td></tr>
+    <tr><td>House No./Name (मकान संख्या/नाम) </td><td><input type="text" name="permHouse"></td><td><input type="text" name="currHouse"></td></tr>
+    <tr><td>Street/Mohalla (सड़क/मोहल्ला) </td><td><input type="text" name="permStreet"></td><td><input type="text" name="currStreet"></td></tr>
+    <tr><td>Village/Town (ग्राम/शहर) </td><td><input type="text" name="permVillage"></td><td><input type="text" name="currVillage"></td></tr>
+    <tr><td>Panchayat/PO (पंचायत/डाकघर) </td><td><input type="text" name="permPanchayat"></td><td><input type="text" name="currPanchayat"></td></tr>
+    <tr><td>Block & District (प्रखंड एवं जिला) </td><td><input type="text" name="permBlockDist"></td><td><input type="text" name="currBlockDist"></td></tr>
+    <tr><td>PIN Code(पिन कोड)</td><td><input type="text" name="permPin" maxlength="6"></td><td><input type="text" name="currPin" maxlength="6"></td></tr>
   </table>
 
   <p><strong>आवासीय प्रमाण पत्र विवरणी:</strong></p>
@@ -324,21 +324,21 @@
         <label><input type="radio" name="domicile" value="No"> NO</label>
       </div>
     </td></tr>
-    <tr><th>प्रमाण पत्र संख्या (Certificate No.)</th><td><input type="text" name="certNo"></td></tr>
+    <tr><th>प्रमाण पत्र संख्या (नवनिर्मित है फिर भी चलेगा) (Certificate No.)</th><td><input type="text" name="certNo"></td></tr>
   </table>
 </section>
 
 <!-- 6. Appointment & Salary -->
 <section>
   <h3 class="section-title">6. Appointment & Salary Details (नियुक्ति एवं वर्तमान वेतन विवरणी)</h3>
-  <p><strong>A.</strong> यदि शिक्षक पंचायती राज / नगर प्रारंभिक शिक्षक नियोजन नियमावली के अंतर्गत नियुक्त हैं (IF YES)</p>
+  <p><strong>A.</strong> यदि शिक्षक पंचायती राज / नगर प्रारंभिक शिक्षक नियोजन नियमावली के अंतर्गत नियुक्त हैं (IF YES) : (शिक्षा मित्र अगर थे तो विभागीय आदेश अनुसार नियुक्ति तिथि 01-07-2006 अंकित करना है)</p>
   <table class="bordered">
-    <tr><th>Initial Basic Salary</th><td><input type="text" name="initialBasic"></td></tr>
-    <tr><th>Present Basic Salary</th><td><input type="text" name="presentBasicA"></td></tr>
-    <tr><th>Letter No & Date</th><td><input type="text" name="letterNoA"></td></tr>
-    <tr><th>Date of Current Posting</th><td><input type="date" name="currPostingA"></td></tr>
-    <tr><th>UAN Number</th><td><input type="text" name="uan"></td></tr>
-    <tr><th>Payment Process</th><td>
+    <tr><th>Initial Basic Salary (नियुक्ति के समय मूल वेतन)</th><td><input type="text" name="initialBasic"></td></tr>
+    <tr><th>Present Basic Salary (वर्तमान मूल वेतन)</th><td><input type="text" name="presentBasicA"></td></tr>
+    <tr><th>Appointment Letter No & Date (नियुक्ति पत्र संख्या)</th><td><input type="text" name="letterNoA"></td></tr>
+    <tr><th>Date of Current Posting/Joining (वर्तमान स्कूल पदस्थापन तिथि)</th><td><input type="date" name="currPostingA"></td></tr>
+    <tr><th></th>Identification Numbers (UAN) </th><td><input type="text" name="uan"></td></tr>
+    <tr><th>Payment Process (भुगतान की प्रक्रिया)</th><td>
       <div class="opt-group">
         <label><input type="radio" name="paymentProcessA" value="Bank Transfer"> BANK TRANSFER</label>
         <label><input type="radio" name="paymentProcessA" value="Cheque"> CHEQUE</label>
@@ -346,18 +346,18 @@
     </td></tr>
   </table>
 
-  <p><strong>B.</strong> यदि शिक्षक नियोजन नियमावली के अंतर्गत नियुक्त नहीं हैं (IF NO)</p>
+  <p><strong>B.</strong> यदि शिक्षक नियोजन नियमावली के अंतर्गत नियुक्त नहीं हैं (जैसे - नियमित/BPSC/HEAD TEACHER/UHS Headmaster) (IF NO): अगर बाद में नियोजित शिक्षक बन गए हैं तो इस खंड को भी भरना अनिवार्य है। </p>
   <table class="bordered">
-    <tr><th>Pay Matrix Level</th><td><input type="text" name="payMatrixLevel"></td></tr>
-    <tr><th>Present Pay Scale</th><td><input type="text" name="presentPayScale"></td></tr>
-    <tr><th>Letter No & Date</th><td><input type="text" name="letterNoB"></td></tr>
-    <tr><th>Date of Current Posting</th><td><input type="date" name="currPostingB"></td></tr>
-    <tr><th>Present Basic Pay</th><td><input type="text" name="presentBasicB"></td></tr>
-    <tr><th>Present HRA Pay</th><td><input type="text" name="hra"></td></tr>
-    <tr><th>Present Grade Pay</th><td><input type="text" name="gradePay"></td></tr>
-    <tr><th>Present Total Pay</th><td><input type="text" name="totalPay"></td></tr>
+    <tr><th>Pay Matrix Level (पे मैट्रिक्स लेवल)</th><td><input type="text" name="payMatrixLevel"></td></tr>
+    <tr><th>Present Pay Scale (वर्तमान वेतनमान)</th><td><input type="text" name="presentPayScale"></td></tr>
+    <tr><th>Appointment Letter No & Date (नियुक्ति पत्र संख्या)</th><td><input type="text" name="letterNoB"></td></tr>
+    <tr><th>Date of Current Posting (वर्तमान स्कूल पदस्थापन तिथि)</th><td><input type="date" name="currPostingB"></td></tr>
+    <tr><th>Present Basic Pay (वर्तमान मूल वेतन)</th><td><input type="text" name="presentBasicB"></td></tr>
+    <tr><th>Present HRA Pay (वर्तमान आवास भत्ता)</th><td><input type="text" name="hra"></td></tr>
+    <tr><th>Present Grade Pay (वर्तमान ग्रेड पे)</th><td><input type="text" name="gradePay"></td></tr>
+    <tr><th>Present Total Pay (वर्तमान कुल वेतन)</th><td><input type="text" name="totalPay"></td></tr>
     <tr><th>PRAN / GPF No.</th><td><input type="text" name="pranGpf"></td></tr>
-    <tr><th>Payment Process</th><td>
+    <tr><th>Payment Process (भुगतान की प्रक्रिया)</th><td>
       <div class="opt-group">
         <label><input type="radio" name="paymentProcessB" value="Bank Transfer"> BANK TRANSFER</label>
         <label><input type="radio" name="paymentProcessB" value="Cheque"> CHEQUE</label>
