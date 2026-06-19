@@ -146,9 +146,12 @@
 <a class="back" href="index.html">← होमपेज पर वापस जाएं</a>
 
 <div class="toolbar">
+  <button id="loadBtn" type="button" onclick="loadFromServer()" style="background:#555;">Load My Data</button>
+  <button id="saveBtn" type="button" onclick="submitToServer()" style="background:#2e8b57;">Save / Submit</button>
   <button id="clearBtn" type="button" onclick="clearForm()">Clear Form</button>
   <button id="printBtn" type="button" onclick="window.print()">Print / Save PDF</button>
 </div>
+<p style="font-size:12px;color:#666;margin-top:-10px;">अपना Teacher ID भरें, फिर "Load My Data" दबाकर पुराना भरा हुआ फॉर्म वापस ला सकते हैं। फॉर्म इसी डिवाइस पर अपने आप भी सेव होता रहता है।</p>
 
 <h2 class="title">ई-शिक्षाकोष शिक्षक प्रारूप (DCF Form)</h2>
 
@@ -383,9 +386,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr><td>1</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="date"></td><td><input type="date"></td><td><input type="text"></td></tr>
-      <tr><td>2</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="date"></td><td><input type="date"></td><td><input type="text"></td></tr>
-      <tr><td>3</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="date"></td><td><input type="date"></td><td><input type="text"></td></tr>
+      <tr><td>1</td><td><input type="text" name="service1_distBlock"></td><td><input type="text" name="service1_school"></td><td><input type="text" name="service1_udise"></td><td><input type="text" name="service1_designation"></td><td><input type="date" name="service1_from"></td><td><input type="date" name="service1_to"></td><td><input type="text" name="service1_subject"></td></tr>
+      <tr><td>2</td><td><input type="text" name="service2_distBlock"></td><td><input type="text" name="service2_school"></td><td><input type="text" name="service2_udise"></td><td><input type="text" name="service2_designation"></td><td><input type="date" name="service2_from"></td><td><input type="date" name="service2_to"></td><td><input type="text" name="service2_subject"></td></tr>
+      <tr><td>3</td><td><input type="text" name="service3_distBlock"></td><td><input type="text" name="service3_school"></td><td><input type="text" name="service3_udise"></td><td><input type="text" name="service3_designation"></td><td><input type="date" name="service3_from"></td><td><input type="date" name="service3_to"></td><td><input type="text" name="service3_subject"></td></tr>
     </tbody>
   </table>
 </section>
@@ -398,8 +401,8 @@
   <table class="grid-table">
     <thead><tr><th>Sl.</th><th>Education</th><th>Year</th><th>Institution</th><th>Board/Univ.</th><th>Subject</th><th>Marks Obs.</th><th>Full Marks</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-      <tr><td>2</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+      <tr><td>1</td><td><input type="text" name="qualA1_edu"></td><td><input type="text" name="qualA1_year"></td><td><input type="text" name="qualA1_inst"></td><td><input type="text" name="qualA1_board"></td><td><input type="text" name="qualA1_subject"></td><td><input type="text" name="qualA1_marksObt"></td><td><input type="text" name="qualA1_fullMarks"></td></tr>
+      <tr><td>2</td><td><input type="text" name="qualA2_edu"></td><td><input type="text" name="qualA2_year"></td><td><input type="text" name="qualA2_inst"></td><td><input type="text" name="qualA2_board"></td><td><input type="text" name="qualA2_subject"></td><td><input type="text" name="qualA2_marksObt"></td><td><input type="text" name="qualA2_fullMarks"></td></tr>
     </tbody>
   </table>
 
@@ -407,8 +410,8 @@
   <table class="grid-table">
     <thead><tr><th>Sl.</th><th>Education</th><th>Year</th><th>Institution</th><th>Board/Univ.</th><th>Subject</th><th>Marks Obs.</th><th>Full Marks</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-      <tr><td>2</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+      <tr><td>1</td><td><input type="text" name="qualB1_edu"></td><td><input type="text" name="qualB1_year"></td><td><input type="text" name="qualB1_inst"></td><td><input type="text" name="qualB1_board"></td><td><input type="text" name="qualB1_subject"></td><td><input type="text" name="qualB1_marksObt"></td><td><input type="text" name="qualB1_fullMarks"></td></tr>
+      <tr><td>2</td><td><input type="text" name="qualB2_edu"></td><td><input type="text" name="qualB2_year"></td><td><input type="text" name="qualB2_inst"></td><td><input type="text" name="qualB2_board"></td><td><input type="text" name="qualB2_subject"></td><td><input type="text" name="qualB2_marksObt"></td><td><input type="text" name="qualB2_fullMarks"></td></tr>
     </tbody>
   </table>
 
@@ -416,8 +419,8 @@
   <table class="grid-table">
     <thead><tr><th>Sl.</th><th>Education</th><th>Year</th><th>Institution</th><th>Board/Univ.</th><th>Subject</th><th>Marks Obs.</th><th>Full Marks</th></tr></thead>
     <tbody>
-      <tr><td>1</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
-      <tr><td>2</td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td><td><input type="text"></td></tr>
+      <tr><td>1</td><td><input type="text" name="qualC1_edu"></td><td><input type="text" name="qualC1_year"></td><td><input type="text" name="qualC1_inst"></td><td><input type="text" name="qualC1_board"></td><td><input type="text" name="qualC1_subject"></td><td><input type="text" name="qualC1_marksObt"></td><td><input type="text" name="qualC1_fullMarks"></td></tr>
+      <tr><td>2</td><td><input type="text" name="qualC2_edu"></td><td><input type="text" name="qualC2_year"></td><td><input type="text" name="qualC2_inst"></td><td><input type="text" name="qualC2_board"></td><td><input type="text" name="qualC2_subject"></td><td><input type="text" name="qualC2_marksObt"></td><td><input type="text" name="qualC2_fullMarks"></td></tr>
     </tbody>
   </table>
 </section>
@@ -498,10 +501,119 @@
 </form>
 
 <script>
+// ===== CONFIG: paste your Google Apps Script Web App URL here =====
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5K__OUUj4MoBPtWfo4NnLVxnfGBFosDf_VssMj-G1dYoYW2PiAlZdsBKWEXN5NqcG/exec";
+const LOCAL_KEY = "dcf_form_draft";
+
+const form = document.getElementById('dcfForm');
+
 function clearForm(){
   if(confirm("क्या आप पूरा फॉर्म साफ़ करना चाहते हैं? (Clear the entire form?)")){
-    document.getElementById('dcfForm').reset();
+    form.reset();
+    localStorage.removeItem(LOCAL_KEY);
   }
+}
+
+// Serialize form (handles text/date/email, radios, and multi-value checkboxes)
+function serializeForm(){
+  const data = {};
+  const fd = new FormData(form);
+  for (const [key, value] of fd.entries()){
+    if (data[key] !== undefined){
+      data[key] = Array.isArray(data[key]) ? data[key].concat(value) : [data[key], value];
+    } else {
+      data[key] = value;
+    }
+  }
+  // join checkbox arrays into comma string for sheet storage
+  Object.keys(data).forEach(k => {
+    if (Array.isArray(data[k])) data[k] = data[k].join(", ");
+  });
+  return data;
+}
+
+// Populate form fields from a plain data object
+function populateForm(data){
+  Object.keys(data).forEach(key => {
+    const value = data[key];
+    const els = form.querySelectorAll(`[name="${CSS.escape(key)}"]`);
+    if (!els.length) return;
+    if (els[0].type === 'radio' || els[0].type === 'checkbox'){
+      const values = String(value).split(",").map(v => v.trim());
+      els.forEach(el => { el.checked = values.includes(el.value); });
+    } else {
+      els[0].value = value;
+    }
+  });
+}
+
+// ---- Local autosave (same device) ----
+let saveTimer;
+form.addEventListener('input', () => {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(serializeForm()));
+  }, 500);
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem(LOCAL_KEY);
+  if (saved){
+    try { populateForm(JSON.parse(saved)); } catch(e){}
+  }
+});
+
+// ---- Central save (Google Sheet via Apps Script) ----
+function submitToServer(){
+  const data = serializeForm();
+  if (!data.teacherId){
+    alert("कृपया पहले Teacher ID भरें। (Please fill Teacher ID first.)");
+    return;
+  }
+  if (GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")){
+    alert("Server URL अभी सेट नहीं है। पहले Google Apps Script deploy करें।");
+    return;
+  }
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(res => {
+    if (res.status === 'success'){
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(data));
+      alert("फॉर्म सफलतापूर्वक सेव हो गया! (Saved successfully)");
+    } else {
+      alert("कुछ गड़बड़ी हुई। दोबारा प्रयास करें।");
+    }
+  })
+  .catch(() => alert("Save नहीं हो पाया। Internet connection जाँचें।"));
+}
+
+function loadFromServer(){
+  const teacherIdEl = form.querySelector('[name="teacherId"]');
+  const teacherId = teacherIdEl ? teacherIdEl.value.trim() : '';
+  if (!teacherId){
+    alert("कृपया पहले Teacher ID भरें। (Please enter Teacher ID first.)");
+    return;
+  }
+  if (GOOGLE_SCRIPT_URL.includes("PASTE_YOUR")){
+    alert("Server URL अभी सेट नहीं है। पहले Google Apps Script deploy करें।");
+    return;
+  }
+  fetch(`${GOOGLE_SCRIPT_URL}?teacherId=${encodeURIComponent(teacherId)}`)
+  .then(res => res.json())
+  .then(res => {
+    if (res.status === 'success'){
+      populateForm(res.data);
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(res.data));
+      alert("पुराना डेटा लोड हो गया। अब आप एडिट कर सकते हैं।");
+    } else {
+      alert("इस Teacher ID से कोई डेटा नहीं मिला।");
+    }
+  })
+  .catch(() => alert("डेटा लोड नहीं हो पाया। Internet connection जाँचें।"));
 }
 </script>
 
