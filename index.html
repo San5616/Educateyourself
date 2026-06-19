@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Educate Yourself - Home</title>
+<style>
+  :root{
+    --accent:#1a4d8f;
+    --bg:#f5f7fa;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Noto Sans Devanagari','Segoe UI',Arial,sans-serif;
+    margin:0;
+    background:var(--bg);
+    color:#222;
+  }
+  header{
+    background:var(--accent);
+    color:#fff;
+    padding:30px 20px;
+    text-align:center;
+  }
+  header h1{margin:0 0 6px;font-size:26px;}
+  header p{margin:0;font-size:14px;opacity:0.9;}
+
+  main{
+    max-width:900px;
+    margin:30px auto;
+    padding:0 20px;
+  }
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+    gap:18px;
+  }
+  .card{
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:18px;
+    text-decoration:none;
+    color:#222;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06);
+    transition:transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    border-color:var(--accent);
+  }
+  .card h3{
+    margin:0 0 8px;
+    color:var(--accent);
+    font-size:17px;
+  }
+  .card p{
+    margin:0;
+    font-size:13px;
+    color:#555;
+    line-height:1.5;
+  }
+  .tag{
+    display:inline-block;
+    margin-top:10px;
+    font-size:11px;
+    background:var(--bg);
+    border:1px solid #ccc;
+    border-radius:12px;
+    padding:2px 10px;
+    color:#444;
+  }
+  footer{
+    text-align:center;
+    font-size:12px;
+    color:#888;
+    padding:30px 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Educate Yourself</h1>
+  <p>उपयोगी फॉर्म एवं संसाधन (Useful Forms & Resources)</p>
+</header>
+
+<main>
+  <div class="card-grid">
+    <a class="card" href="dcf-form.html">
+      <h3>e-Shikshakosh DCF Form</h3>
+      <p>शिक्षक पंजीकरण हेतु भरने योग्य DCF प्रारूप। ऑनलाइन भरें और प्रिंट/PDF के रूप में सहेजें।</p>
+      <span class="tag">Fillable Form</span>
+    </a>
+
+    <!-- Add more cards here as you create more forms/pages -->
+    <!--
+    <a class="card" href="another-form.html">
+      <h3>Form Title</h3>
+      <p>Short description of what this form/page does.</p>
+      <span class="tag">Category</span>
+    </a>
+    -->
+  </div>
+</main>
+
+<footer>
+  &copy; 2026 Educate Yourself. सभी जानकारी सहायता हेतु है, कृपया आधिकारिक स्रोत से पुष्टि करें।
+</footer>
+
+</body>
+</html>
