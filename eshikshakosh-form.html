@@ -249,7 +249,8 @@
             </div>
         </div>
 
-        <div class="fetch-area no-print" id="fetchSection">
+        <div class="fetch-area no-print" id="fetchSection" style="display: none;">
+
             <label><strong>Load Data:</strong></label>
             <input type="text" id="searchTeacherId" placeholder="Enter Teacher ID">
             <button type="button" onclick="fetchPreviousData()" class="btn-fetch">Fetch Data</button>
@@ -350,9 +351,9 @@
             </table>
 
             <div class="bottom-buttons-container">
-                <button type="button" onclick="saveDataOnly()" class="btn-action btn-save-db" id="saveDbBtn">
-                    विवरण सहेजें (Save Data to Sheet)
-                </button>
+                <button type="button" onclick="saveDataOnly()" class="btn-action btn-save-db" id="saveDbBtn" style="display: none;">
+    विवरण सहेजें (Save Data to Sheet)
+</button>
                 <button type="button" onclick="handleGeneratePDF()" class="btn-action btn-generate-pdf">
                     PDF डाउनलोड करें (Generate PDF)
                 </button>
