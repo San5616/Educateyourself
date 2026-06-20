@@ -12,14 +12,14 @@
             font-family: 'Segoe UI', 'Noto Sans Devanagari', sans-serif; 
             background-color: #f4f7fb; 
             margin: 0; 
-            padding: 20px;
+            padding: 15px; /* Slightly reduced for mobile */
         }
         
         .container { 
             max-width: 1000px; 
             margin: 0 auto; 
             background: #ffffff; 
-            padding: 30px; 
+            padding: 20px; 
             border-radius: 8px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
@@ -30,12 +30,14 @@
             align-items: center;
             border-bottom: 2px solid #0d47a1;
             padding-bottom: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap; /* Helps on mobile */
+            gap: 15px;
         }
         .header-title h1 {
             margin: 0;
             color: #0d47a1;
-            font-size: 26px;
+            font-size: 24px;
         }
 
         /* Fetch Data UI Styles */
@@ -47,19 +49,21 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap; /* Ensures it doesn't break mobile view */
         }
         .fetch-area input {
             padding: 8px;
             border: 1px solid #cbd5e1;
             border-radius: 4px;
-            width: 200px;
+            width: 100%;
+            max-width: 200px;
         }
 
         .btn-save-top {
             background-color: #16a34a;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 15px;
             font-size: 14px;
             font-weight: bold;
             border-radius: 6px;
@@ -84,26 +88,31 @@
         }
         .btn-save-bottom:hover { background-color: #1565c0; }
 
+        /* Table structural fixes for better mobile wrapping */
         .dcf-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            table-layout: fixed; /* Forces column widths to respect limits */
         }
         .dcf-table th, .dcf-table td {
             border: 1px solid #cbd5e1;
-            padding: 10px 12px;
+            padding: 10px 8px;
             font-size: 14px;
             text-align: left;
             vertical-align: middle;
+            word-wrap: break-word; /* Important for long words in mobile */
+            overflow-wrap: break-word;
         }
         .dcf-table th {
             background-color: #e2e8f0;
             color: #1f2937;
             font-weight: bold;
         }
-        .col-si { width: 8%; text-align: center; }
-        .col-info { width: 46%; font-weight: 500; }
-        .col-fill { width: 46%; }
+        
+        .col-si { width: 10%; text-align: center; }
+        .col-info { width: 45%; font-weight: 500; }
+        .col-fill { width: 45%; }
 
         .section-row {
             background-color: #0d47a1;
@@ -116,13 +125,14 @@
             color: white;
             text-align: center;
             padding: 8px;
-            background-color: #0d47a1;
+            background-color: #0d47a1 !important;
         }
         .section-row-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 10px;
+            padding: 0 5px;
+            flex-wrap: wrap;
         }
 
         .dcf-table input[type="text"],
@@ -131,11 +141,12 @@
         .dcf-table input[type="email"],
         .dcf-table select {
             width: 100%;
-            padding: 6px 8px;
+            padding: 8px;
             border: 1px solid #cbd5e1;
             border-radius: 4px;
             box-sizing: border-box;
             font-size: 14px;
+            white-space: pre-wrap; /* Helps typing view */
         }
         
         .btn-copy, .btn-fetch {
@@ -147,6 +158,7 @@
             font-weight: bold;
             border-radius: 4px;
             cursor: pointer;
+            margin-top: 5px;
         }
         .btn-copy:hover, .btn-fetch:hover { background-color: #f9a825; }
 
@@ -154,6 +166,15 @@
             content: "";
             clear: both;
             display: table;
+        }
+        
+        /* Mobile Specific adjustments */
+        @media screen and (max-width: 600px) {
+            .header-title h1 { font-size: 20px; }
+            .dcf-table th, .dcf-table td { padding: 6px 4px; font-size: 13px; }
+            .col-si { width: 12%; }
+            .col-info { width: 44%; }
+            .col-fill { width: 44%; }
         }
     </style>
 </head>
@@ -163,7 +184,7 @@
         
         <div class="header-area">
             <div class="header-title">
-                <h1>E-Shikshakosh DCF For Teacher</h1>
+                <h1>E-Shikshakosh DCF</h1>
             </div>
             <div>
                 <button type="button" onclick="handleSaveAndDownload()" class="btn-save-top">
@@ -174,10 +195,10 @@
         </div>
 
         <div class="fetch-area no-print" id="fetchSection">
-            <label><strong>Load Previous Data if filled before:</strong></label>
-            <input type="text" id="searchAadhaar" placeholder="Enter 12-digit Aadhar Number" maxlength="12">
+            <label><strong>Load Previous Data:</strong></label>
+            <input type="text" id="searchAadhaar" placeholder="Enter 12-digit Number" maxlength="12">
             <button type="button" onclick="fetchPreviousData()" class="btn-fetch">Fetch Data</button>
-            <span id="fetchMsg" style="font-weight: bold;"></span>
+            <span id="fetchMsg" style="font-weight: bold; margin-left: 10px;"></span>
         </div>
 
         <form id="dcfForm">
@@ -190,9 +211,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="section-row">
-                        <td colspan="3">1. व्यक्तिगत और सेवा विवरण (Personal & Service Details)</td>
-                    </tr>
+                    <tr class="section-row"><td colspan="3">1. व्यक्तिगत और सेवा विवरण (Personal & Service Details)</td></tr>
                     <tr>
                         <td class="col-si">1</td>
                         <td class="col-info">Prefix:-</td>
@@ -374,10 +393,43 @@
     </div>
 
     <script>
-        // ==========================================
-        // 1. ADDED YOUR GOOGLE SCRIPT WEB APP URL
-        // ==========================================
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6ZetgktxJhNVPvN90NKLdpN_esHufeR1gpyY74DQ9s3Y4zl1K4WwNkV0_6vvhFEdx/exec';
+
+        // ==========================================
+        // LOCAL STORAGE - AUTO SAVE (Fixes Issue #3)
+        // ==========================================
+        function saveDraftToBrowser() {
+            const draftData = {};
+            for (let i = 1; i <= 61; i++) {
+                const el = document.getElementById('f' + i);
+                if (el) draftData['f' + i] = el.value;
+            }
+            draftData['searchAadhaar'] = document.getElementById('searchAadhaar').value;
+            sessionStorage.setItem('dcfFormDraft', JSON.stringify(draftData));
+        }
+
+        function restoreDraftFromBrowser() {
+            const savedDraft = sessionStorage.getItem('dcfFormDraft');
+            if (savedDraft) {
+                const draftData = JSON.parse(savedDraft);
+                for (const key in draftData) {
+                    const el = document.getElementById(key);
+                    if (el) el.value = draftData[key];
+                }
+            }
+        }
+
+        // Run this when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            restoreDraftFromBrowser();
+            
+            // Listen to every input field. If user types, save it automatically.
+            const allInputs = document.querySelectorAll('input, select');
+            allInputs.forEach(input => {
+                input.addEventListener('input', saveDraftToBrowser);
+                input.addEventListener('change', saveDraftToBrowser);
+            });
+        });
 
         function copyPermanentAddress() {
             const fieldMap = {
@@ -390,6 +442,7 @@
                 const targetEl = document.getElementById(fieldMap[src]);
                 if (srcEl && targetEl) {
                     targetEl.value = srcEl.value;
+                    saveDraftToBrowser(); // Save state after copying
                 }
             }
         }
@@ -401,7 +454,7 @@
             
             if (searchVal.length !== 12) {
                 msg.style.color = "red";
-                msg.innerText = "Please enter a valid 12-digit number.";
+                msg.innerText = "Please enter valid 12-digit Aadhaar.";
                 return;
             }
 
@@ -415,22 +468,20 @@
                 if (result.status === "found") {
                     msg.style.color = "green";
                     msg.innerText = "Data loaded successfully!";
-                    
-                    // Populate all 61 fields
                     for (let i = 1; i <= 61; i++) {
                         const el = document.getElementById('f' + i);
                         if (el && result.data[i - 1] !== undefined) {
                             el.value = result.data[i - 1];
                         }
                     }
+                    saveDraftToBrowser(); // Save the fetched data to session storage
                 } else {
                     msg.style.color = "red";
                     msg.innerText = "No previous data found.";
                 }
             } catch (error) {
                 msg.style.color = "red";
-                msg.innerText = "Error loading data. Check connection.";
-                console.error(error);
+                msg.innerText = "Error loading data.";
             }
         }
 
@@ -441,8 +492,6 @@
                 const el = document.getElementById('f' + i);
                 formData.push(el ? el.value : "");
             }
-
-            // Fire and forget (saves in background)
             fetch(SCRIPT_URL, {
                 method: 'POST',
                 body: JSON.stringify({ formData: formData }),
@@ -452,71 +501,77 @@
 
         // --- COMBINED SAVE & GENERATE PDF ---
         function handleSaveAndDownload() {
-            // 1. Send data to Google Sheets in the background
             saveToDatabase();
-            
-            // 2. Generate the PDF immediately
             generatePDF();
         }
 
         function generatePDF() {
             const form = document.getElementById('dcfForm');
-            
             const allInputs = form.querySelectorAll('input, select');
+            
+            // Set values so they clone properly
             allInputs.forEach(input => {
                 if (input.tagName.toLowerCase() === 'select') {
                     input.setAttribute('value', input.value);
                     const options = input.querySelectorAll('option');
                     options.forEach(opt => {
-                        if (opt.value === input.value) {
-                            opt.setAttribute('selected', 'selected');
-                        } else {
-                            opt.removeAttribute('selected');
-                        }
+                        if (opt.value === input.value) opt.setAttribute('selected', 'selected');
+                        else opt.removeAttribute('selected');
                     });
                 } else {
                     input.setAttribute('value', input.value);
                 }
             });
 
+            // Clone the container to build the PDF version
             const originalContainer = document.getElementById('form-container');
             const clone = originalContainer.cloneNode(true);
             
-            // Remove buttons and fetch section from PDF clone
+            // Remove buttons and fetch section
             const topBtn = clone.querySelector('.btn-save-top');
             if (topBtn) topBtn.parentElement.remove();
-            
             const bottomBtn = clone.querySelector('.btn-save-bottom');
             if (bottomBtn) bottomBtn.parentElement.remove();
-            
             const copyBtn = clone.querySelector('.btn-copy');
             if (copyBtn) copyBtn.remove();
-
-            // Specifically hide the fetch UI from the PDF
             const fetchUI = clone.querySelector('.no-print');
             if (fetchUI) fetchUI.remove();
 
-            const cloneInputs = clone.querySelectorAll('input, select');
+            // === REDUCE SIZES FOR PDF TO FIT 3 PAGES (Issue #2) ===
+            const cloneCells = clone.querySelectorAll('.dcf-table th, .dcf-table td');
+            cloneCells.forEach(cell => {
+                cell.style.padding = "5px 6px"; // Shrink padding for PDF
+                cell.style.fontSize = "12px";   // Shrink font for PDF
+            });
+            const sectionRows = clone.querySelectorAll('.section-row td');
+            sectionRows.forEach(td => td.style.padding = "4px");
 
+            // Replace inputs with text spans
+            const cloneInputs = clone.querySelectorAll('input, select');
             allInputs.forEach((input, index) => {
                 const value = input.value || '-';
                 const textSpan = document.createElement('span');
                 textSpan.innerText = value;
                 textSpan.style.fontWeight = "bold";
                 textSpan.style.color = "#111827";
-                textSpan.style.display = "inline-block";
-                textSpan.style.padding = "4px 0";
+                textSpan.style.display = "block"; 
+                
+                // === FIX WORD WRAP IN PDF (Issue #1) ===
+                textSpan.style.wordBreak = "break-word";
+                textSpan.style.whiteSpace = "pre-wrap"; 
                 
                 if (cloneInputs[index] && cloneInputs[index].parentElement) {
                     cloneInputs[index].parentElement.replaceChild(textSpan, cloneInputs[index]);
                 }
             });
 
-            const firstName = document.getElementById('f2').value || 'Teacher';
-            const lastName = document.getElementById('f4').value || 'DCF';
+            // Get Teacher's Name for File Name & Footer
+            const firstName = document.getElementById('f2').value.trim() || 'Teacher';
+            const lastName = document.getElementById('f4').value.trim() || 'DCF';
+            const fullName = `${firstName} ${lastName}`.trim();
 
             const opt = {
-                margin:       [12, 12, 12, 12],
+                margin:       [10, 10, 15, 10], // 15mm bottom margin allows room for Footer
                 filename:     `E-Shikshakosh_DCF_${firstName}_${lastName}.pdf`,
                 image:        { type: 'jpeg', quality: 0.98 },
                 html2canvas:  { scale: 2, useCORS: true, logging: false },
@@ -524,8 +579,29 @@
                 pagebreak:    { mode: ['avoid-all', 'css'] }
             };
 
+            // Generate PDF and add Page Numbers + Teacher Name to Footer (Issue #4 & #5)
             setTimeout(() => {
-                html2pdf().set(opt).from(clone).save();
+                html2pdf().set(opt).from(clone).toPdf().get('pdf').then(function (pdf) {
+                    const totalPages = pdf.internal.getNumberOfPages();
+                    for (let i = 1; i <= totalPages; i++) {
+                        pdf.setPage(i);
+                        pdf.setFontSize(10);
+                        pdf.setTextColor(128, 128, 128); // Gray color
+                        
+                        const pageWidth = pdf.internal.pageSize.getWidth();
+                        const pageHeight = pdf.internal.pageSize.getHeight();
+                        
+                        // Footer Left: Teacher Name
+                        if(fullName !== "Teacher DCF") {
+                            pdf.text("Teacher: " + fullName, 10, pageHeight - 6);
+                        }
+
+                        // Footer Middle: Page Number
+                        const pageText = "Page " + i + " of " + totalPages;
+                        const textWidth = pdf.getStringUnitWidth(pageText) * pdf.internal.getFontSize() / pdf.internal.scaleFactor;
+                        pdf.text(pageText, (pageWidth - textWidth) / 2, pageHeight - 6);
+                    }
+                }).save();
             }, 150);
         }
     </script>
