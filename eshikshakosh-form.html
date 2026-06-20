@@ -54,34 +54,35 @@
             border: 1px solid #cbd5e1;
             border-radius: 4px;
             width: 100%;
-            max-width: 200px;
+            max-width: 250px;
         }
 
-        .btn-save-top, .btn-save-bottom {
+        .btn-action {
             color: white;
             border: none;
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
-        }
-        .btn-save-top {
-            background-color: #16a34a;
-            padding: 10px 15px;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
+            padding: 12px 25px;
+            font-size: 15px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
+        .btn-save-top { background-color: #16a34a; padding: 10px 15px; font-size: 14px; display: flex; align-items: center; }
         .btn-save-top:hover { background-color: #15803d; }
         
-        .btn-save-bottom {
-            background-color: #0d47a1;
-            padding: 14px 35px;
-            font-size: 16px;
+        /* New Bottom Buttons Styles */
+        .bottom-buttons-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 20px;
-            float: right;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-        .btn-save-bottom:hover { background-color: #1565c0; }
+        .btn-save-db { background-color: #f59e0b; color: #111827; }
+        .btn-save-db:hover { background-color: #d97706; color: white; }
+        .btn-generate-pdf { background-color: #0d47a1; }
+        .btn-generate-pdf:hover { background-color: #1565c0; }
 
         .dcf-table {
             width: 100%;
@@ -156,8 +157,6 @@
             margin-top: 5px;
         }
         .btn-copy:hover, .btn-fetch:hover { background-color: #f9a825; }
-
-        .clearfix::after { content: ""; clear: both; display: table; }
         
         @media screen and (max-width: 600px) {
             .header-title h1 { font-size: 20px; }
@@ -165,15 +164,16 @@
             .col-si { width: 10%; }
             .col-info { width: 30%; } 
             .col-fill { width: 60%; } 
+            .bottom-buttons-container { flex-direction: column; width: 100%; }
+            .btn-action { width: 100%; text-align: center; }
         }
 
         /* ====================================================
-           PRINT STYLES (Fixed Footer Overlap & Margin Issues) 
+           PRINT STYLES 
            ==================================================== */
         @media print {
             @page {
                 size: A4 portrait;
-                /* Increased bottom margin to give extra room for footer & content */
                 margin: 10mm 10mm 25mm 10mm; 
             }
             body { 
@@ -188,21 +188,11 @@
                 max-width: 100% !important; 
             }
             
-            .header-area {
-                margin-bottom: 5px !important;
-                padding-bottom: 5px !important;
-            }
+            .header-area { margin-bottom: 5px !important; padding-bottom: 5px !important; }
             .header-title h1 { font-size: 18px !important; }
 
-            thead {
-                display: table-row-group;
-            }
-
-            /* PREVENTS ROWS FROM CUTTING IN HALF OR HIDING BEHIND FOOTER */
-            tr {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-            }
+            thead { display: table-row-group; }
+            tr { page-break-inside: avoid !important; break-inside: avoid !important; }
 
             .section-row td {
                 background-color: #0d47a1 !important;
@@ -217,29 +207,17 @@
                 print-color-adjust: exact;
             }
 
-            .no-print, .btn-save-top, .btn-save-bottom, .btn-copy, .fetch-area {
+            .no-print, .btn-save-top, .bottom-buttons-container, .btn-copy, .fetch-area {
                 display: none !important;
             }
 
-            .dcf-table th, .dcf-table td {
-                padding: 3px 5px !important; 
-                font-size: 13px !important; 
-                line-height: 1.1 !important; 
-            }
-
-            .page-break {
-                page-break-before: always !important;
-                break-before: page !important;
-            }
-
-            table {
-                margin-bottom: 30px !important; 
-            }
+            .dcf-table th, .dcf-table td { padding: 3px 5px !important; font-size: 13px !important; line-height: 1.1 !important; }
+            .page-break { page-break-before: always !important; break-before: page !important; }
+            table { margin-bottom: 30px !important; }
             
             #print-footer {
                 display: flex !important;
                 position: fixed;
-                /* Pushed footer further down into the safe margin area */
                 bottom: -10px; 
                 left: 0;
                 width: 100%;
@@ -264,7 +242,7 @@
                 <h1>E-Shikshakosh DCF</h1>
             </div>
             <div>
-                <button type="button" onclick="handleSaveAndDownload()" class="btn-save-top">
+                <button type="button" onclick="handleGeneratePDF()" class="btn-action btn-save-top">
                     <svg style="width:16px; height:16px; margin-right:8px; fill:currentColor;" viewBox="0 0 24 24"><path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/></svg>
                     Save PDF (डाउनलोड करें)
                 </button>
@@ -272,8 +250,8 @@
         </div>
 
         <div class="fetch-area no-print" id="fetchSection">
-            <label><strong>Load Previous Data:</strong></label>
-            <input type="text" id="searchAadhaar" placeholder="Enter 12-digit Number" maxlength="12">
+            <label><strong>Load Data:</strong></label>
+            <input type="text" id="searchTeacherId" placeholder="Enter Teacher ID">
             <button type="button" onclick="fetchPreviousData()" class="btn-fetch">Fetch Data</button>
             <span id="fetchMsg" style="font-weight: bold; margin-left: 10px;"></span>
         </div>
@@ -310,7 +288,6 @@
                     <tr><td class="col-si">19</td><td class="col-info">UAN NUMBER :-</td><td class="col-fill"><input type="text" id="f19"></td></tr>
                     <tr><td class="col-si">20</td><td class="col-info">PRAN Number :-</td><td class="col-fill"><input type="text" id="f20"></td></tr>
 
-                    <!-- PAGE BREAK STARTS EXACTLY HERE -->
                     <tr class="section-row page-break"><td colspan="3">Posting Details</td></tr>
                     
                     <tr><td class="col-si">21</td><td class="col-info">District :-</td><td class="col-fill"><input type="text" id="f21"></td></tr>
@@ -370,16 +347,21 @@
                 </tbody>
             </table>
 
-            <div class="clearfix">
-                <button type="button" onclick="handleSaveAndDownload()" class="btn-save-bottom">
-                    विवरण सहेजें और PDF डाउनलोड करें
+            <div class="bottom-buttons-container">
+                <button type="button" onclick="saveDataOnly()" class="btn-action btn-save-db" id="saveDbBtn">
+                    विवरण सहेजें (Save Data to Sheet)
+                </button>
+                <button type="button" onclick="handleGeneratePDF()" class="btn-action btn-generate-pdf">
+                    PDF डाउनलोड करें (Generate PDF)
                 </button>
             </div>
         </form>
         
-        <!-- FOOTER FOR PDF -->
         <div id="print-footer" style="display: none;">
-            <span id="footer-name">Teacher: </span>
+            <span>
+                <span id="footer-name">Teacher: </span>
+                <span id="footer-teacher-id" style="margin-left: 10px; color: #0d47a1;"></span>
+            </span>
             <span style="visibility: hidden;">Page</span>
             <span>E-Shikshakosh DCF</span>
         </div>
@@ -400,7 +382,7 @@
                 const el = document.getElementById('f' + i);
                 if (el) draftData['f' + i] = el.value;
             }
-            draftData['searchAadhaar'] = document.getElementById('searchAadhaar').value;
+            draftData['searchTeacherId'] = document.getElementById('searchTeacherId').value;
             sessionStorage.setItem('dcfFormDraft', JSON.stringify(draftData));
         }
 
@@ -455,12 +437,12 @@
         }
 
         async function fetchPreviousData() {
-            const searchVal = document.getElementById('searchAadhaar').value;
+            const searchVal = document.getElementById('searchTeacherId').value;
             const msg = document.getElementById('fetchMsg');
             
-            if (searchVal.length !== 12) {
+            if (!searchVal) {
                 msg.style.color = "red";
-                msg.innerText = "Please enter valid 12-digit Number.";
+                msg.innerText = "Please enter a valid Teacher ID.";
                 return;
             }
 
@@ -494,22 +476,38 @@
             }
         }
 
-        function saveToDatabase() {
+        // Dedicated Function to Save Data to Google Sheet (Bottom Left Button)
+        async function saveDataOnly() {
+            const btn = document.getElementById('saveDbBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "Saving to Google Sheet...";
+            
             const formData = [];
             for (let i = 1; i <= 61; i++) {
                 const el = document.getElementById('f' + i);
                 formData.push(el ? el.value : "");
             }
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify({ formData: formData }),
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' }
-            }).catch(err => console.error("Database save failed:", err));
+
+            try {
+                // 'no-cors' forces the browser to send data without blocking cross-origin policies.
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({ formData: formData }),
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' }
+                });
+                
+                alert("✅ डेटा सफलतापूर्वक Google Sheet में सेव हो गया है!");
+            } catch (err) {
+                console.error("Database save failed:", err);
+                alert("❌ डेटा सेव नहीं हुआ। कृपया इंटरनेट कनेक्शन चेक करें।");
+            } finally {
+                btn.innerText = originalText;
+            }
         }
 
-        function handleSaveAndDownload() {
-            saveToDatabase();
-            
+        // PDF Generation Function (Bottom Right Button)
+        function handleGeneratePDF() {
             const form = document.getElementById('dcfForm');
             const inputs = form.querySelectorAll('input, select, textarea');
             const replacements = [];
@@ -517,9 +515,15 @@
             const firstName = document.getElementById('f2').value.trim() || 'Teacher';
             const lastName = document.getElementById('f4').value.trim() || 'DCF';
             const fullName = `${firstName} ${lastName}`.trim();
+            const teacherIdVal = document.getElementById('searchTeacherId').value.trim();
             
             if(fullName !== "Teacher DCF") {
                 document.getElementById('footer-name').innerText = "Teacher Name: " + fullName;
+            }
+            if(teacherIdVal) {
+                document.getElementById('footer-teacher-id').innerText = "| Teacher ID: " + teacherIdVal;
+            } else {
+                document.getElementById('footer-teacher-id').innerText = "";
             }
             
             const originalTitle = document.title;
@@ -546,7 +550,6 @@
             });
 
             setTimeout(() => {
-                // User Prompt for Page Number
                 alert("PDF सेव करते समय 'More settings' में जाकर 'Headers and footers' वाले विकल्प को ON (Tick ✅) रखें। इससे पेज नंबर बीच में आ जाएगा।");
                 
                 window.print();
