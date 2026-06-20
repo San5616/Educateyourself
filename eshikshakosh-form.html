@@ -121,13 +121,6 @@
             padding: 8px;
             background-color: #0d47a1 !important;
         }
-        .section-row-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 5px;
-            flex-wrap: wrap;
-        }
 
         .dcf-table input[type="text"],
         .dcf-table input[type="date"],
@@ -143,9 +136,13 @@
             font-size: 14px;
             font-family: inherit;
         }
+        
+        /* Auto-expanding Textarea styles */
         .dcf-table textarea {
-            resize: vertical;
+            overflow: hidden; /* Hides scrollbar */
+            resize: none; /* Prevents manual resizing */
             line-height: 1.4;
+            min-height: 38px; /* Standard single line height */
         }
         
         .btn-copy, .btn-fetch {
@@ -172,12 +169,12 @@
         }
 
         /* ====================================================
-           PRINT STYLES (Fixed Page Breaks & Footer) 
+           PRINT STYLES 
            ==================================================== */
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 10mm 10mm 15mm 10mm; /* Space at bottom for footer */
+                margin: 10mm 10mm 15mm 10mm; 
             }
             body { 
                 background-color: white !important; 
@@ -197,6 +194,11 @@
             }
             .header-title h1 { font-size: 18px !important; }
 
+            /* REMOVES REPEATING TABLE HEADER ON NEXT PAGES */
+            thead {
+                display: table-row-group;
+            }
+
             .section-row td {
                 background-color: #0d47a1 !important;
                 color: white !important;
@@ -214,23 +216,21 @@
                 display: none !important;
             }
 
-            /* --- GUARANTEE ROW 1-20 FIT ON PAGE 1 --- */
             .dcf-table th, .dcf-table td {
-                padding: 3px 5px !important; /* Reduced to fit page 1 */
+                padding: 3px 5px !important; 
                 font-size: 13px !important; 
                 line-height: 1.1 !important; 
             }
 
-            /* --- FORCES PAGE BREAK EXACTLY BEFORE ROW 21 --- */
             .page-break {
                 page-break-before: always !important;
                 break-before: page !important;
             }
 
-            /* --- CUSTOM FOOTER FOR PRINT --- */
             table {
-                margin-bottom: 25px !important; /* Prevents text behind footer */
+                margin-bottom: 25px !important; 
             }
+            
             #print-footer {
                 display: flex !important;
                 position: fixed;
@@ -309,8 +309,8 @@
                     
                     <tr><td class="col-si">21</td><td class="col-info">District :-</td><td class="col-fill"><input type="text" id="f21"></td></tr>
                     <tr><td class="col-si">22</td><td class="col-info">Block :-</td><td class="col-fill"><input type="text" id="f22"></td></tr>
-                    <tr><td class="col-si">23</td><td class="col-info">Cluster/Complex resource center :-</td><td class="col-fill"><textarea id="f23" rows="2"></textarea></td></tr>
-                    <tr><td class="col-si">24</td><td class="col-info">School :-</td><td class="col-fill"><textarea id="f24" rows="2"></textarea></td></tr>
+                    <tr><td class="col-si">23</td><td class="col-info">Cluster/Complex resource center :-</td><td class="col-fill"><textarea id="f23" rows="1"></textarea></td></tr>
+                    <tr><td class="col-si">24</td><td class="col-info">School :-</td><td class="col-fill"><textarea id="f24" rows="1"></textarea></td></tr>
                     <tr><td class="col-si">25</td><td class="col-info">Appointment for level :-</td><td class="col-fill"><input type="text" id="f25"></td></tr>
                     <tr><td class="col-si">26</td><td class="col-info">Appointing Authority :-</td><td class="col-fill"><input type="text" id="f26"></td></tr>
                     <tr><td class="col-si">27</td><td class="col-info">Date of Joining of the Current school:-</td><td class="col-fill"><input type="date" id="f27"></td></tr>
@@ -328,11 +328,11 @@
                     <tr><td class="col-si">37</td><td class="col-info">Whether Awarded ? :-</td><td class="col-fill"><select id="f37"><option value=""></option><option value="No">No</option><option value="Yes">Yes</option></select></td></tr>
 
                     <tr class="section-row"><td colspan="3">Permanent Address</td></tr>
-                    <tr><td class="col-si">38</td><td class="col-info">House Number/Name :-</td><td class="col-fill"><textarea id="f38" rows="2"></textarea></td></tr>
-                    <tr><td class="col-si">39</td><td class="col-info">Street/Mohalla/Sector:-</td><td class="col-fill"><textarea id="f39" rows="2"></textarea></td></tr>
-                    <tr><td class="col-si">40</td><td class="col-info">Panchayat :-</td><td class="col-fill"><textarea id="f40" rows="2"></textarea></td></tr>
+                    <tr><td class="col-si">38</td><td class="col-info">House Number/Name :-</td><td class="col-fill"><textarea id="f38" rows="1"></textarea></td></tr>
+                    <tr><td class="col-si">39</td><td class="col-info">Street/Mohalla/Sector:-</td><td class="col-fill"><textarea id="f39" rows="1"></textarea></td></tr>
+                    <tr><td class="col-si">40</td><td class="col-info">Panchayat :-</td><td class="col-fill"><textarea id="f40" rows="1"></textarea></td></tr>
                     <tr><td class="col-si">41</td><td class="col-info">Post Office :-</td><td class="col-fill"><input type="text" id="f41"></td></tr>
-                    <tr><td class="col-si">42</td><td class="col-info">Village/Area/Town :-</td><td class="col-fill"><textarea id="f42" rows="2"></textarea></td></tr>
+                    <tr><td class="col-si">42</td><td class="col-info">Village/Area/Town :-</td><td class="col-fill"><textarea id="f42" rows="1"></textarea></td></tr>
                     <tr><td class="col-si">43</td><td class="col-info">Block :-</td><td class="col-fill"><input type="text" id="f43"></td></tr>
                     <tr><td class="col-si">44</td><td class="col-info">District :-</td><td class="col-fill"><input type="text" id="f44"></td></tr>
                     <tr><td class="col-si">45</td><td class="col-info">PIN Code :-</td><td class="col-fill"><input type="text" id="f45"></td></tr>
@@ -342,18 +342,18 @@
                     <tr><td class="col-si">49</td><td class="col-info">Copy of Domicile Certificate* :-</td><td class="col-fill"><select id="f49"><option value=""></option><option value="Yes">Yes</option><option value="No">No</option></select></td></tr>
 
                     <tr class="section-row">
-                        <td colspan="3">
-                            <div class="section-row-inner">
+                        <td colspan="3" style="padding: 0;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 5px; flex-wrap: wrap;">
                                 <span>Current Address</span>
                                 <button type="button" onclick="copyPermanentAddress()" class="btn-copy">स्थायी पता कॉपी करें</button>
                             </div>
                         </td>
                     </tr>
-                    <tr><td class="col-si">50</td><td class="col-info">House Number/Name :-</td><td class="col-fill"><textarea id="f50" rows="2"></textarea></td></tr>
-                    <tr><td class="col-si">51</td><td class="col-info">Street/Mohalla/Sector :-</td><td class="col-fill"><textarea id="f51" rows="2"></textarea></td></tr>
-                    <tr><td class="col-si">52</td><td class="col-info">Panchayat :-</td><td class="col-fill"><textarea id="f52" rows="2"></textarea></td></tr>
+                    <tr><td class="col-si">50</td><td class="col-info">House Number/Name :-</td><td class="col-fill"><textarea id="f50" rows="1"></textarea></td></tr>
+                    <tr><td class="col-si">51</td><td class="col-info">Street/Mohalla/Sector :-</td><td class="col-fill"><textarea id="f51" rows="1"></textarea></td></tr>
+                    <tr><td class="col-si">52</td><td class="col-info">Panchayat :-</td><td class="col-fill"><textarea id="f52" rows="1"></textarea></td></tr>
                     <tr><td class="col-si">53</td><td class="col-info">Post Office :-</td><td class="col-fill"><input type="text" id="f53"></td></tr>
-                    <tr><td class="col-si">54</td><td class="col-info">Village/Area/Town :-</td><td class="col-fill"><textarea id="f54" rows="2"></textarea></td></tr>
+                    <tr><td class="col-si">54</td><td class="col-info">Village/Area/Town :-</td><td class="col-fill"><textarea id="f54" rows="1"></textarea></td></tr>
                     <tr><td class="col-si">55</td><td class="col-info">Block :-</td><td class="col-fill"><input type="text" id="f55"></td></tr>
                     <tr><td class="col-si">56</td><td class="col-info">District :-</td><td class="col-fill"><input type="text" id="f56"></td></tr>
                     <tr><td class="col-si">57</td><td class="col-info">PIN Code :-</td><td class="col-fill"><input type="text" id="f57"></td></tr>
@@ -371,9 +371,11 @@
             </div>
         </form>
         
-        <!-- FOOTER FOR PDF (Left Name + Right Document Title) -->
+        <!-- FOOTER FOR PDF -->
         <div id="print-footer" style="display: none;">
             <span id="footer-name">Teacher: </span>
+            <!-- Center is left empty so the Browser's native Page Number can fit perfectly here -->
+            <span style="visibility: hidden;">Page</span>
             <span>E-Shikshakosh DCF</span>
         </div>
         
@@ -381,6 +383,12 @@
 
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6ZetgktxJhNVPvN90NKLdpN_esHufeR1gpyY74DQ9s3Y4zl1K4WwNkV0_6vvhFEdx/exec';
+
+        // Auto-Resize Textarea Function
+        function autoResizeTextarea() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        }
 
         function saveDraftToBrowser() {
             const draftData = {};
@@ -398,13 +406,24 @@
                 const draftData = JSON.parse(savedDraft);
                 for (const key in draftData) {
                     const el = document.getElementById(key);
-                    if (el) el.value = draftData[key];
+                    if (el) {
+                        el.value = draftData[key];
+                        if(el.tagName.toLowerCase() === 'textarea') {
+                            autoResizeTextarea.call(el);
+                        }
+                    }
                 }
             }
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            const textareas = document.querySelectorAll('textarea');
+            textareas.forEach(ta => {
+                ta.addEventListener('input', autoResizeTextarea);
+            });
+
             restoreDraftFromBrowser();
+            
             const allInputs = document.querySelectorAll('input, select, textarea');
             allInputs.forEach(input => {
                 input.addEventListener('input', saveDraftToBrowser);
@@ -423,6 +442,9 @@
                 const targetEl = document.getElementById(fieldMap[src]);
                 if (srcEl && targetEl) {
                     targetEl.value = srcEl.value;
+                    if(targetEl.tagName.toLowerCase() === 'textarea') {
+                        autoResizeTextarea.call(targetEl);
+                    }
                     saveDraftToBrowser();
                 }
             }
@@ -434,7 +456,7 @@
             
             if (searchVal.length !== 12) {
                 msg.style.color = "red";
-                msg.innerText = "Please enter valid 12-digit Aadhaar.";
+                msg.innerText = "Please enter valid 12-digit Number.";
                 return;
             }
 
@@ -452,6 +474,9 @@
                         const el = document.getElementById('f' + i);
                         if (el && result.data[i - 1] !== undefined) {
                             el.value = result.data[i - 1];
+                            if(el.tagName.toLowerCase() === 'textarea') {
+                                autoResizeTextarea.call(el);
+                            }
                         }
                     }
                     saveDraftToBrowser();
@@ -485,7 +510,6 @@
             const inputs = form.querySelectorAll('input, select, textarea');
             const replacements = [];
 
-            // File Name & Footer Setup
             const firstName = document.getElementById('f2').value.trim() || 'Teacher';
             const lastName = document.getElementById('f4').value.trim() || 'DCF';
             const fullName = `${firstName} ${lastName}`.trim();
@@ -495,12 +519,10 @@
             }
             
             const originalTitle = document.title;
-            // Sets the Default Download File Name
             document.title = `E-Shikshakosh_DCF_${firstName}_${lastName}`;
 
             window.scrollTo(0, 0);
 
-            // Convert Inputs to Text for Print
             inputs.forEach(input => {
                 const span = document.createElement('span');
                 span.style.fontWeight = 'bold';
@@ -520,9 +542,11 @@
             });
 
             setTimeout(() => {
+                // IMPORTANT: Tell the user to enable Headers and Footers for the page number
+                alert("PDF सेव करते समय 'More settings' में जाकर 'Headers and footers' वाले विकल्प को ON (Tick ✅) रखें। इससे पेज नंबर बीच में आ जाएगा।");
+                
                 window.print();
                 
-                // Restore form after print dialog closes
                 replacements.forEach(item => {
                     item.span.remove();
                     item.input.style.display = '';
