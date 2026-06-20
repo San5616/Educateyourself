@@ -100,7 +100,6 @@
     font-size: 14px;
   }
 
-  /* ===== Modern UI: Card & Grid System ===== */
   .card {
     background: #fff;
     border-radius: 8px;
@@ -154,7 +153,6 @@
     background: #fff;
   }
 
-  /* Address specific 3-column grid */
   .address-group {
     display: flex;
     border-bottom: 1px solid var(--border);
@@ -186,7 +184,6 @@
   }
   .address-input:last-child, .address-header-cell:last-child { border-right: none; }
 
-  /* Input Elements */
   input[type=text], input[type=email], input[type=tel], input[type=date], input[type=number] {
     width: 100%;
     border: none;
@@ -198,7 +195,6 @@
   }
   input:focus { outline: none; border-bottom: 2px solid var(--accent); }
 
-  /* Enhanced Textareas */
   textarea.smooth-entry, textarea.auto-grow {
     width: 100%;
     min-height: 40px;
@@ -232,7 +228,6 @@
   }
   .opt-group label input { width: auto; margin: 0; cursor: pointer; }
 
-  /* ===== Data Tables ===== */
   .table-container {
     width: 100%;
     overflow-x: auto;
@@ -263,7 +258,6 @@
     text-align: left;
   }
   
-  /* Column Widths */
   .grid-table th.col-sl { width: 50px; text-align: center; }
   .grid-table th.col-action { width: 60px; text-align: center; }
   .grid-table th.col-date { width: 130px; }
@@ -273,6 +267,7 @@
     border: 1px solid var(--border);
     border-radius: 4px;
     padding: 6px;
+    width: 100%;
   }
   
   .table-actions {
@@ -301,7 +296,6 @@
 
   .sub-text { font-size: 13px; color: #555; margin: 10px 15px; }
 
-  /* Declarations */
   .declare {
     margin-top: 40px;
     display: flex;
@@ -341,7 +335,6 @@
     padding-top: 8px;
   }
 
-  /* ===== Responsive Mobile Screen (Does NOT apply to Print) ===== */
   @media screen and (max-width: 768px) {
     .form-group { flex-direction: column; }
     .form-label { width: 100%; border-right: none; }
@@ -352,15 +345,18 @@
     .declare { flex-direction: column; align-items: center; text-align: center; }
   }
 
-  /* ===== EXTREME PDF PRINT COMPRESSION ===== */
+  /* ===== FIX FOR TABLE PDF CLIPPING ===== */
   @media print {
-    @page { margin: 0.5cm; } /* Reduce page margins to save space */
+    @page { 
+      size: A4 portrait;
+      margin: 5mm; 
+    }
     
     body {
       background: #fff;
       padding: 0 !important;
       margin: 0 !important;
-      font-size: 10px !important; /* Smaller text for compact print */
+      font-size: 11px !important;
       line-height: 1.2 !important;
       max-width: 100%;
     }
@@ -370,7 +366,7 @@
     h2.title {
       padding: 6px !important;
       margin: 0 0 10px 0 !important;
-      font-size: 14px !important;
+      font-size: 15px !important;
     }
 
     .ids-container {
@@ -401,7 +397,7 @@
     .form-group { 
       border-bottom: 1px solid #000 !important; 
       page-break-inside: avoid !important;
-      flex-direction: row !important; /* Force side-by-side even on mobile */
+      flex-direction: row !important;
       display: flex !important;
     }
     
@@ -410,8 +406,8 @@
       color: #000 !important;
       border-right: 1px solid #000 !important;
       padding: 4px 6px !important;
-      font-size: 10px !important;
-      width: 35% !important; /* Strict width */
+      font-size: 11px !important;
+      width: 35% !important;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
@@ -427,25 +423,20 @@
       page-break-inside: avoid !important;
       display: flex !important;
     }
-    .address-label { width: 30% !important; padding: 4px 6px !important; font-size: 10px !important; border-right: 1px solid #000 !important; }
+    .address-label { width: 30% !important; padding: 4px 6px !important; font-size: 11px !important; border-right: 1px solid #000 !important; }
     .address-input, .address-header-cell { width: 35% !important; padding: 4px 6px !important; border-right: 1px solid #000 !important; border-bottom: none !important; }
     .address-header { display: flex !important; }
 
-    textarea.smooth-entry, textarea.auto-grow {
-      border: none !important;
-      background: transparent !important;
-      padding: 0 !important;
-      min-height: auto !important; /* Remove tall minimum heights */
-      font-size: 10px !important;
-      resize: none !important;
+    /* THIS FIXES TABLE CLIPPING */
+    .table-container { padding: 0 !important; overflow: visible !important; width: 100% !important; }
+    
+    .grid-table { 
+      min-width: auto !important; 
+      margin-top: 5px !important; 
+      table-layout: auto !important; /* Forces columns to resize based on content, preventing cut-offs */
+      width: 100% !important; 
     }
-
-    input[type=text], input[type=email], input[type=tel], input[type=date], input[type=number] { 
-      border-bottom: none !important; 
-      padding: 0 !important;
-      font-size: 10px !important;
-    }
-
+    
     .grid-table th {
       background: #e0e0e0 !important;
       color: #000 !important;
@@ -454,24 +445,44 @@
       position: static !important;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
+      white-space: normal !important;
     }
+    
     .grid-table td {
       padding: 4px !important;
       font-size: 10px !important;
+      word-wrap: break-word !important;
+      overflow-wrap: break-word !important;
+      white-space: pre-wrap !important;
+      overflow: visible !important;
+    }
+
+    textarea.smooth-entry, textarea.auto-grow {
+      border: none !important;
+      background: transparent !important;
+      padding: 0 !important;
+      min-height: auto !important;
+      font-size: 11px !important;
+      resize: none !important;
+      overflow: visible !important;
+      white-space: pre-wrap !important;
+      display: block !important;
+    }
+
+    input[type=text], input[type=email], input[type=tel], input[type=date], input[type=number] { 
+      border-bottom: none !important; 
+      padding: 0 !important;
+      font-size: 11px !important;
+      background: transparent !important;
     }
 
     .opt-group { gap: 6px !important; }
-    .opt-group label { font-size: 10px !important; }
+    .opt-group label { font-size: 11px !important; }
+    .sub-text { margin: 5px 8px !important; font-size: 11px !important; }
 
-    .table-container { padding: 0 !important; overflow: visible !important; }
-    .grid-table { min-width: auto !important; margin-top: 5px !important; }
-    .sub-text { margin: 5px 8px !important; font-size: 10px !important; }
-
-    /* The Critical Fixes for Blank Pages */
     table { page-break-inside: auto !important; }
     tr { page-break-inside: avoid !important; }
     thead { display: table-header-group !important; }
-    textarea, input { overflow: visible !important; height: auto !important; }
     .section, .form-row, .card { break-inside: auto !important; page-break-inside: auto !important; }
 
     .declare {
@@ -480,16 +491,9 @@
       flex-direction: row !important;
       gap: 15px !important;
     }
-    .declare p { font-size: 11px !important; }
-    .photo-box {
-      width: 80px !important;
-      height: 100px !important;
-      font-size: 10px !important;
-    }
-    .sign-line {
-      margin-top: 25px !important;
-      padding-bottom: 10px !important;
-    }
+    .declare p { font-size: 12px !important; }
+    .photo-box { width: 80px !important; height: 100px !important; font-size: 11px !important; }
+    .sign-line { margin-top: 25px !important; padding-bottom: 10px !important; }
   }
 </style>
 </head>
@@ -807,7 +811,7 @@
 
 <div class="card">
   <div class="card-header">6. Appointment & Salary Details (नियुक्ति एवं वर्तमान वेतन विवरणी)</div>
-  <div class="sub-text"><strong>A.</strong> यदि शिक्षक पंचायती राज / नगर प्रारंभिक शिक्षक नियोजन नियमावली के अंतर्गत नियुक्त हैं (IF YES) : (शिक्षा मित्र अगर थे तो विभागीय आदेश अनुसार नियुक्ति तिथि 01-07-2006 अंकित करना है)</div>
+  <div class="sub-text"><strong>A.</strong> यदि शिक्षक पंचायती राज / नगर प्रारंभिक शिक्षक नियोजन नियमावली के अंतर्गत नियुक्त हैं (IF YES)</div>
   <div class="form-grid">
     <div class="form-group">
       <div class="form-label">Initial Basic Salary (नियुक्ति के समय मूल वेतन)</div>
@@ -822,7 +826,7 @@
       <div class="form-input-container"><textarea class="smooth-entry" name="letterNoA" rows="1"></textarea></div>
     </div>
     <div class="form-group">
-      <div class="form-label">Date of Current Posting/Joining (वर्तमान स्कूल पदस्थापन तिथि)</div>
+      <div class="form-label">Date of Current Posting/Joining</div>
       <div class="form-input-container"><input type="date" name="currPostingA"></div>
     </div>
     <div class="form-group">
@@ -855,7 +859,7 @@
       <div class="form-input-container"><textarea class="smooth-entry" name="letterNoB" rows="1"></textarea></div>
     </div>
     <div class="form-group">
-      <div class="form-label">Date of Current Posting (वर्तमान स्कूल पदस्थापन तिथि)</div>
+      <div class="form-label">Date of Current Posting</div>
       <div class="form-input-container"><input type="date" name="currPostingB"></div>
     </div>
     <div class="form-group">
@@ -1187,7 +1191,6 @@ const LOCAL_KEY = "dcf_form_draft";
 
 const form = document.getElementById('dcfForm');
 
-// Clear form logic
 function clearForm(){
   if(confirm("क्या आप पूरा फॉर्म साफ़ करना चाहते हैं? (Clear the entire form?)")){
     form.reset();
@@ -1196,7 +1199,6 @@ function clearForm(){
   }
 }
 
-// Data serialization
 function serializeForm(){
   const data = {};
   const fd = new FormData(form);
@@ -1213,7 +1215,6 @@ function serializeForm(){
   return data;
 }
 
-// Populate form logic
 function populateForm(data){
   Object.keys(data).forEach(key => {
     const value = data[key];
@@ -1231,7 +1232,6 @@ function populateForm(data){
   });
 }
 
-// Auto-grow Textarea handling
 function autoGrow(el) {
   el.style.height = 'auto';
   el.style.height = (el.scrollHeight + 2) + 'px';
@@ -1243,7 +1243,14 @@ document.addEventListener('input', e => {
   }
 });
 
-// Dynamic Rows Add/Remove
+// VERY IMPORTANT PDF FIX: Forces boxes to open up fully before printing
+window.addEventListener('beforeprint', () => {
+  document.querySelectorAll('textarea').forEach(el => {
+    el.style.height = 'auto';
+    el.style.height = (el.scrollHeight + 5) + 'px';
+  });
+});
+
 function addRow(tableId) {
   const tbody = document.querySelector(`#${tableId} tbody`);
   const rows = tbody.querySelectorAll('tr');
@@ -1281,7 +1288,6 @@ function removeRow(btn) {
   }
 }
 
-// Local autosave
 let saveTimer;
 form.addEventListener('input', () => {
   clearTimeout(saveTimer);
@@ -1298,7 +1304,6 @@ window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('textarea.smooth-entry').forEach(autoGrow);
 });
 
-// Google Sheets Integration
 function submitToServer(){
   const data = serializeForm();
   if (!data.teacherId){
