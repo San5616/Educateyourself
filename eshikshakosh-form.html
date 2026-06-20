@@ -137,12 +137,11 @@
             font-family: inherit;
         }
         
-        /* Auto-expanding Textarea styles */
         .dcf-table textarea {
-            overflow: hidden; /* Hides scrollbar */
-            resize: none; /* Prevents manual resizing */
+            overflow: hidden; 
+            resize: none; 
             line-height: 1.4;
-            min-height: 38px; /* Standard single line height */
+            min-height: 38px; 
         }
         
         .btn-copy, .btn-fetch {
@@ -169,12 +168,13 @@
         }
 
         /* ====================================================
-           PRINT STYLES 
+           PRINT STYLES (Fixed Footer Overlap & Margin Issues) 
            ==================================================== */
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 10mm 10mm 15mm 10mm; 
+                /* Increased bottom margin to give extra room for footer & content */
+                margin: 10mm 10mm 25mm 10mm; 
             }
             body { 
                 background-color: white !important; 
@@ -194,9 +194,14 @@
             }
             .header-title h1 { font-size: 18px !important; }
 
-            /* REMOVES REPEATING TABLE HEADER ON NEXT PAGES */
             thead {
                 display: table-row-group;
+            }
+
+            /* PREVENTS ROWS FROM CUTTING IN HALF OR HIDING BEHIND FOOTER */
+            tr {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
 
             .section-row td {
@@ -228,13 +233,14 @@
             }
 
             table {
-                margin-bottom: 25px !important; 
+                margin-bottom: 30px !important; 
             }
             
             #print-footer {
                 display: flex !important;
                 position: fixed;
-                bottom: 0;
+                /* Pushed footer further down into the safe margin area */
+                bottom: -10px; 
                 left: 0;
                 width: 100%;
                 justify-content: space-between;
@@ -374,7 +380,6 @@
         <!-- FOOTER FOR PDF -->
         <div id="print-footer" style="display: none;">
             <span id="footer-name">Teacher: </span>
-            <!-- Center is left empty so the Browser's native Page Number can fit perfectly here -->
             <span style="visibility: hidden;">Page</span>
             <span>E-Shikshakosh DCF</span>
         </div>
@@ -384,7 +389,6 @@
     <script>
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz6ZetgktxJhNVPvN90NKLdpN_esHufeR1gpyY74DQ9s3Y4zl1K4WwNkV0_6vvhFEdx/exec';
 
-        // Auto-Resize Textarea Function
         function autoResizeTextarea() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
@@ -542,7 +546,7 @@
             });
 
             setTimeout(() => {
-                // IMPORTANT: Tell the user to enable Headers and Footers for the page number
+                // User Prompt for Page Number
                 alert("PDF सेव करते समय 'More settings' में जाकर 'Headers and footers' वाले विकल्प को ON (Tick ✅) रखें। इससे पेज नंबर बीच में आ जाएगा।");
                 
                 window.print();
