@@ -427,10 +427,10 @@
     .address-input, .address-header-cell { width: 35% !important; padding: 4px 6px !important; border-right: 1px solid #000 !important; border-bottom: none !important; }
     .address-header { display: flex !important; }
 
-        /* THIS FIXES TABLE CLIPPING AND FORCES WORD WRAP */
+            /* THIS FIXES TABLE CLIPPING, FORCES WORD WRAP, AND EXPANDS BOXES */
     .table-container { 
       padding: 0 !important; 
-      overflow: hidden !important; 
+      overflow: visible !important; /* 'hidden' को हटाकर 'visible' किया गया है */
       width: 100% !important; 
       max-width: 100% !important; 
     }
@@ -438,7 +438,7 @@
     .grid-table { 
       min-width: auto !important; 
       margin-top: 5px !important; 
-      table-layout: fixed !important; /* 'auto' को 'fixed' किया गया है ताकि टेबल पेज से बाहर न जाए */
+      table-layout: fixed !important; 
       width: 100% !important; 
       max-width: 100% !important;
     }
@@ -452,7 +452,7 @@
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
       white-space: normal !important;
-      vertical-align: middle !important;
+      vertical-align: top !important; /* Top अलाइनमेंट ज्यादा अच्छा दिखेगा */
       word-wrap: break-word !important;
       word-break: break-word !important;
     }
@@ -462,25 +462,25 @@
       font-size: 12px !important;
       word-wrap: break-word !important;
       overflow-wrap: break-word !important;
-      word-break: break-word !important; /* लंबे शब्दों को तोड़कर नई लाइन में लाएगा */
-      white-space: normal !important; /* Text को Wrap होने में मदद करेगा */
-      vertical-align: middle !important;
+      word-break: break-word !important; 
+      white-space: normal !important; 
+      vertical-align: top !important; /* Top अलाइनमेंट ज्यादा अच्छा दिखेगा */
     }
 
     textarea.smooth-entry, textarea.auto-grow {
       border: none !important;
       background: transparent !important;
       padding: 0 !important;
-      height: auto !important; 
-      min-height: auto !important;
+      /* height: auto !important; -- इसे हटा दिया गया है ताकि जावास्क्रिप्ट अपना काम कर सके */
+      /* min-height: auto !important; -- इसे भी हटा दिया गया है */
       font-size: 12px !important; 
       resize: none !important;
-      overflow: hidden !important;
+      overflow: visible !important; /* यह छुपे हुए टेक्स्ट को दिखाएगा */
       white-space: pre-wrap !important;
       word-wrap: break-word !important;
-      word-break: break-word !important; /* यह Textarea के अंदर के टेक्स्ट को Wrap करेगा */
+      word-break: break-word !important; 
       display: block !important;
-      width: 100% !important; /* Textarea को सेल के बाहर जाने से रोकेगा */
+      width: 100% !important; 
       max-width: 100% !important;
     }
 
