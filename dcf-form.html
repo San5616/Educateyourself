@@ -427,50 +427,63 @@
     .address-input, .address-header-cell { width: 35% !important; padding: 4px 6px !important; border-right: 1px solid #000 !important; border-bottom: none !important; }
     .address-header { display: flex !important; }
 
-    /* THIS FIXES TABLE CLIPPING */
-    .table-container { padding: 0 !important; overflow: visible !important; width: 100% !important; }
+        /* THIS FIXES TABLE CLIPPING AND FORCES WORD WRAP */
+    .table-container { 
+      padding: 0 !important; 
+      overflow: hidden !important; 
+      width: 100% !important; 
+      max-width: 100% !important; 
+    }
     
     .grid-table { 
       min-width: auto !important; 
       margin-top: 5px !important; 
-      table-layout: auto !important; /* Forces columns to resize based on content, preventing cut-offs */
+      table-layout: fixed !important; /* 'auto' को 'fixed' किया गया है ताकि टेबल पेज से बाहर न जाए */
       width: 100% !important; 
+      max-width: 100% !important;
     }
     
     .grid-table th {
       background: #e0e0e0 !important;
       color: #000 !important;
       padding: 6px 4px !important;
-      font-size: 12px !important; /* Font size बढ़ाया गया है */
+      font-size: 12px !important;
       position: static !important;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
       white-space: normal !important;
-      vertical-align: middle !important; /* Text को बीच में लाने के लिए */
+      vertical-align: middle !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
     }
     
     .grid-table td {
       padding: 6px 4px !important;
-      font-size: 12px !important; /* Font size बढ़ाया गया है */
+      font-size: 12px !important;
       word-wrap: break-word !important;
       overflow-wrap: break-word !important;
-      white-space: pre-wrap !important;
-      overflow: visible !important;
-      vertical-align: middle !important; /* Text को सेल के बीच (Middle) में रखेगा */
+      word-break: break-word !important; /* लंबे शब्दों को तोड़कर नई लाइन में लाएगा */
+      white-space: normal !important; /* Text को Wrap होने में मदद करेगा */
+      vertical-align: middle !important;
     }
 
     textarea.smooth-entry, textarea.auto-grow {
       border: none !important;
       background: transparent !important;
       padding: 0 !important;
-      height: auto !important; /* यह फालतू गैप को खत्म कर देगा */
+      height: auto !important; 
       min-height: auto !important;
-      font-size: 12px !important; /* Font size बढ़ाया गया है */
+      font-size: 12px !important; 
       resize: none !important;
-      overflow: visible !important;
+      overflow: hidden !important;
       white-space: pre-wrap !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important; /* यह Textarea के अंदर के टेक्स्ट को Wrap करेगा */
       display: block !important;
+      width: 100% !important; /* Textarea को सेल के बाहर जाने से रोकेगा */
+      max-width: 100% !important;
     }
+
     input[type=text], input[type=email], input[type=tel], input[type=date], input[type=number] { 
       border-bottom: none !important; 
       padding: 0 !important;
