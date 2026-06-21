@@ -446,8 +446,8 @@
     .grid-table th {
       background: #e0e0e0 !important;
       color: #000 !important;
-      padding: 6px 4px !important;
-      font-size: 12px !important;
+      padding: 4px 2px !important;
+      font-size: 16px !important;
       position: static !important;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
@@ -458,8 +458,8 @@
     }
     
     .grid-table td {
-      padding: 6px 4px !important;
-      font-size: 12px !important;
+      padding: 4px 2px !important;
+      font-size: 16px !important;
       word-wrap: break-word !important;
       overflow-wrap: break-word !important;
       word-break: break-word !important; 
@@ -471,9 +471,9 @@
       border: none !important;
       background: transparent !important;
       padding: 0 !important;
-      /* height: auto !important; -- इसे हटा दिया गया है ताकि जावास्क्रिप्ट अपना काम कर सके */
-      /* min-height: auto !important; -- इसे भी हटा दिया गया है */
-      font-size: 12px !important; 
+       height: auto !important; /*-- इसे हटा दिया गया है ताकि जावास्क्रिप्ट अपना काम कर सके */
+       min-height: auto !important; /*-- इसे भी हटा दिया गया है */
+      font-size: 16px !important; 
       resize: none !important;
       overflow: visible !important; /* यह छुपे हुए टेक्स्ट को दिखाएगा */
       white-space: pre-wrap !important;
@@ -487,10 +487,14 @@
     input[type=text], input[type=email], input[type=tel], input[type=date], input[type=number] { 
       border-bottom: none !important; 
       padding: 0 !important;
-      font-size: 12px !important; /* Font size बढ़ाया गया है */
+      font-size: 16px !important; /* Font size बढ़ाया गया है */
       background: transparent !important;
     }
-
+/* Date Calendar Icon Hide in Print - कलेंडर के एक्स्ट्रा एरो (v) निशान को हटाने के लिए */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none !important;
+        -webkit-appearance: none !important;
+    }
     .opt-group { gap: 6px !important; }
     .opt-group label { font-size: 11px !important; }
     .sub-text { margin: 5px 8px !important; font-size: 11px !important; }
