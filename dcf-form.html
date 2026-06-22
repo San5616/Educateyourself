@@ -1302,10 +1302,26 @@ function populateForm(data){
     const value = data[key];
     const els = form.querySelectorAll(`[name="${CSS.escape(key)}"]`);
     if (!els.length) return;
+    
     if (els[0].type === 'radio' || els[0].type === 'checkbox'){
       const values = String(value).split(",").map(v => v.trim());
       els.forEach(el => { el.checked = values.includes(el.value); });
-    } else {
+    } 
+    // नया डेट लॉजिक: Sheet से आने वाली डेट को YYYY-MM-DD में बदलना
+    else if (els[0].type === 'date') {
+      if (value) {
+        const d = new Date(value);
+        if (!isNaN(d.getTime())) {
+          const yyyy = d.getFullYear();
+          const mm = String(d.getMonth() + 1).padStart(2, '0');
+          const dd = String(d.getDate()).padStart(2, '0');
+          els[0].value = `${yyyy}-${mm}-${dd}`;
+        } else {
+          els[0].value = value;
+        }
+      }
+    } 
+    else {
       els[0].value = value;
       if(els[0].tagName.toLowerCase() === 'textarea') {
         autoGrow(els[0]);
@@ -1313,6 +1329,7 @@ function populateForm(data){
     }
   });
 }
+
 
 function autoGrow(el) {
   el.style.height = 'auto';
