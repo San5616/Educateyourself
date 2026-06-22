@@ -514,6 +514,65 @@
     .photo-box { width: 80px !important; height: 100px !important; font-size: 11px !important; }
     .sign-line { margin-top: 25px !important; padding-bottom: 10px !important; }
   }
+    /* ===== CUSTOM DATE FORMAT TRICK (OVERLAP FIX) ===== */
+  input[type="date"] {
+    position: relative;
+    color: transparent !important; /* असली डेट को छिपाने के लिए */
+  }
+  
+  /* जब आप बॉक्स पर क्लिक करेंगे तब असली डेट दिखेगी ताकि आप बदल सकें */
+  input[type="date"]:focus {
+    color: var(--text-color) !important; 
+  }
+  
+  input[type="date"]::-webkit-datetime-edit {
+    color: transparent !important;
+  }
+  
+  input[type="date"]:focus::-webkit-datetime-edit {
+    color: var(--text-color) !important;
+  }
+  
+  /* हमारी बनाई हुई कस्टम डेट को दिखाएं */
+  input[type="date"]:not(:focus)::before {
+    content: attr(data-date);
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-color) !important; /* हमारी नई डेट का रंग */
+    pointer-events: none;
+    font-size: 14px;
+    background-color: #fff; /* बैकग्राउंड को सफेद करेगा ताकि नीचे कुछ न दिखे */
+    padding-right: 10px;
+  }
+
+  /* Print (PDF) के समय की सेटिंग */
+  @media print {
+    input[type="date"] {
+      color: transparent !important; 
+      -webkit-text-fill-color: transparent !important; /* मोबाइल में पुरानी डेट को पक्का गायब करेगा */
+    }
+    input[type="date"]::-webkit-datetime-edit { 
+      color: transparent !important; 
+      -webkit-text-fill-color: transparent !important;
+    }
+    input[type="date"]::before {
+      content: attr(data-date);
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #000 !important; /* नई डेट का काला रंग */
+      -webkit-text-fill-color: #000 !important; 
+      font-size: 14px !important;
+      background-color: #fff !important; /* प्रिंट में भी ओवरलैप को 100% रोकेगा */
+      display: inline-block;
+      width: auto;
+      min-width: 80px;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -1388,6 +1447,39 @@ function loadFromServer(){
     btn.disabled = false;
   });
 }
+  // ===== DATE FORMATTER (DD MMM YYYY) =====
+function updateAllDateFormats() {
+  document.querySelectorAll('input[type="date"]').forEach(input => {
+    if (!input.value) {
+      input.setAttribute('data-date', '');
+    } else {
+      const d = new Date(input.value);
+      if (!isNaN(d)) {
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        // Date को 2 डिजिट में सेट करना और महीना जोड़ना
+        const formatted = ("0" + d.getDate()).slice(-2) + " " + months[d.getMonth()] + " " + d.getFullYear();
+        input.setAttribute('data-date', formatted);
+      }
+    }
+  });
+}
+
+// जब भी कोई नई डेट चुने, तो उसे अपडेट करें
+document.addEventListener('input', e => {
+  if (e.target.type === 'date') updateAllDateFormats();
+});
+
+// जब पेज लोड हो या "Load My Data" बटन दबे, तब डेट को फॉर्मेट करें
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(updateAllDateFormats, 500);
+});
+
+const originalPopulate = populateForm;
+populateForm = function(data) {
+  originalPopulate(data);
+  setTimeout(updateAllDateFormats, 200); // डेटा लोड होने के बाद फॉर्मेट लागू करें
+};
+
 </script>
 
 </body>
